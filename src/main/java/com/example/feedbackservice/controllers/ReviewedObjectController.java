@@ -5,6 +5,7 @@ import com.example.feedbackservice.models.ReviewedObject;
 import com.example.feedbackservice.services.CommentService;
 import com.example.feedbackservice.services.ReviewedObjectCommentService;
 import com.example.feedbackservice.services.ReviewedObjectService;
+//import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,11 +56,13 @@ public class ReviewedObjectController {
         getService().saveReviewedObject(newReviewedObject);
         return getReviewedObjects();
     }
-    @GetMapping("/addComment/{description}")
+    @GetMapping("/addComment/{name_object}/{description}")
     @ResponseBody
     public List<Comment> addReviewedObject(
-            @PathVariable String description) {
-        commentService.saveComment(description);
+            @PathVariable String description,
+            @PathVariable String name_object) {
+        Comment newComment = new Comment(name_object, description);
+        commentService.saveComment( description, name_object);
         return getAllComments();
     }
 
@@ -72,4 +75,6 @@ public class ReviewedObjectController {
     private ReviewedObjectService getService() {
         return reviewedObjectServiceMap.get(establishment);
     }
+
+
 }

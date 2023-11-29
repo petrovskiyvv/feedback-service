@@ -1,6 +1,7 @@
 package com.example.feedbackservice.services;
 
 import com.example.feedbackservice.models.Comment;
+import com.example.feedbackservice.models.ReviewedObject;
 import com.example.feedbackservice.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,10 @@ public class CommentService {
     public CommentService(CommentRepository repository) {
         this.repository = repository;
     }
-    public void saveComment(String description){
+    public void saveComment(String description, String name_object){
         Comment comment = new Comment();
         comment.setDescription(description);
+        comment.setName_object(name_object);
         repository.save(comment);
     }
     public Comment getById(Long id){
@@ -29,5 +31,4 @@ public class CommentService {
         repository.findAll().forEach(result::add);
         return result;
     }
-
 }
