@@ -9,11 +9,7 @@ public class Comment {
     @GeneratedValue
     private Long id;
     private String name_object;
-//    @ManyToOne
-//    @JoinColumn(name = "name_object", referencedColumnName = "name")
-//    private ReviewedObject reviewedObject;
     private String description;
-
     public Comment(String name_object, String description) {
         this.name_object = name_object;
         this.description = description;
