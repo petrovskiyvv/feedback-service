@@ -2,20 +2,25 @@ package com.example.feedbackservice.controllers;
 
 import com.example.feedbackservice.models.Comment;
 import com.example.feedbackservice.models.ReviewedObject;
+import com.example.feedbackservice.models.User;
 import com.example.feedbackservice.services.CommentService;
 import com.example.feedbackservice.services.ReviewedObjectCommentService;
 import com.example.feedbackservice.services.ReviewedObjectService;
+//import org.jetbrains.annotations.NotNull;
+import com.example.feedbackservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import org.springframework.ui.Model;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
 
 @Controller
 public class ReviewedObjectController {
@@ -55,14 +60,34 @@ public class ReviewedObjectController {
         getService().saveReviewedObject(newReviewedObject);
         return getReviewedObjects();
     }
-    @GetMapping("/addComment/{description}")
-    @ResponseBody
-    public List<Comment> addReviewedObject(
-            @PathVariable String description) {
-        commentService.saveComment(description);
+//    @GetMapping("/addComment/{name_object}/{description}")
+//    @ResponseBody
+//    public List<Comment> addReviewedObject(
+//            @PathVariable String description,
+//            @PathVariable String name_object) {
+//        Comment newComment = new Comment(name_object, description);
+//        commentService.saveComment( description, name_object);
+//        return getAllComments();
+//    }
+    @GetMapping("/addComment")
+    public List<Comment> registration()
+    {
         return getAllComments();
     }
-
+    @RequestMapping(value="/addComment", method=RequestMethod.POST)
+//    public List<Comment> addComment(@ModelAttribute String name_object, @ModelAttribute String description) {
+//
+//        Comment newComment = new Comment(name_object, description);
+//        commentService.saveComment( description, name_object);
+//        return getAllComments();
+//    }
+    @PostMapping("/addComment")
+    public List<Comment> addComment(@RequestParam("name_object") String name_object, @RequestParam("description") String description)
+    {
+        Comment newComment = new Comment(name_object, description);
+        commentService.saveComment( description, name_object);
+        return getAllComments();
+    }
     @GetMapping("/allComments")
     @ResponseBody
     private List<Comment> getAllComments() {
@@ -72,4 +97,6 @@ public class ReviewedObjectController {
     private ReviewedObjectService getService() {
         return reviewedObjectServiceMap.get(establishment);
     }
+
+
 }

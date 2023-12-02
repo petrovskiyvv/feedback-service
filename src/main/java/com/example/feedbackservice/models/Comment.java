@@ -1,18 +1,21 @@
 package com.example.feedbackservice.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 @Entity
-public class Comment{
+public class Comment {
     @Id
     @GeneratedValue
     private Long id;
+    private String name_object;
     private String description;
-//    private String image;
-    public Comment(){
+    public Comment(String name_object, String description) {
+        this.name_object = name_object;
+        this.description = description;
+    }
+
+    public Comment() {
 
     }
 
@@ -23,16 +26,14 @@ public class Comment{
     public String getDescription() {
         return description;
     }
+    public String getName_object() {
+        return name_object;
+    }
 
     public void setDescription(String description) {
         this.description = description;
     }
-
-//    public String getImage() {
-//        return image;
-//    }
-
-//    public void setImage(String image) {
-//        this.image = image;
-//    }
+    public void setName_object(String name_object) {
+        this.name_object = name_object;
+    }
 }

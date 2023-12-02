@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Add comment</title>
+</head>
+<body>
+<div th:text="*{name_object}">
+    <div th:text="*{description}"></div>
+</div>
+<form th:action="@{/addComment}" th:object="${comment}" method="post">
+    <div><label> Name Object : <input type="text" name="name_object"/> </label></div>
+    <div><label> Add Comment: <input type="text" name="description"/> </label></div>
+    <div><input type="submit" value="Save"/></div>
+</form>
+
+</body>
+</html>
